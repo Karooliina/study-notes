@@ -1,6 +1,7 @@
 Frontend - Next.js dla komponentów interaktywnych:
 
 - Next.js 15 w trybie App Router pozwala na tworzenie szybkich, wydajnych stron i aplikacji z przewagą server-side renderingu
+- Korzystanie z Server Actions zamiast API Routes w celu tworzenia zapytań do bazy danych
 - TypeScript 5 dla statycznego typowania kodu i lepszego wsparcia IDE
 - Tailwind 4 pozwala na wygodne stylowanie aplikacji
 - Shadcn/ui zapewnia bibliotekę dostępnych komponentów React, na których oprzemy UI
