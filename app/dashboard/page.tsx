@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
-export default async function ProtectedPage() {
+export default async function Dashboard() {
   const supabase = await createClient();
 
   const {
@@ -11,7 +11,7 @@ export default async function ProtectedPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return redirect("/sign-in");
+    return redirect("/");
   }
 
   return (
