@@ -1,16 +1,29 @@
-import { checkAuth } from "../../actions";
+"use server";
+import { Button } from "@/components/ui/button";
+import { checkAuth, getNotesAction } from "../../actions";
+import Link from "next/link";
+
+import { NoteList } from "./components/NotesList";
 
 export default async function Dashboard() {
   const { user } = await checkAuth();
+  const { data: notes, error } = await getNotesAction();
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
+    <div className="w-full flex flex-col gap-12">
+      <h1 className="text-2xl font-bold sr-only">Dashboard</h1>
+      <div className="flex w-full justify-end items-start">
+        <Button size="lg">
+          <Link href="/notes/create">Create Note</Link>
+        </Button>
       </div>
+      {notes && notes.data.length > 0 ? (
+        <NoteList notes={notes.data} />
+      ) : (
+        <div className="text-center text-sm text-muted-foreground">
+          No notes found
+        </div>
+      )}
     </div>
   );
 }

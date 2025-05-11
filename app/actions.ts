@@ -451,7 +451,6 @@ export async function generateNoteAction(formData: GenerateNoteRequest) {
     // Call AI service
     try {
       const generatedNote = await generateNoteContent(
-        session.user.id,
         validatedData.source_text
       );
 

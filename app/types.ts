@@ -4,7 +4,7 @@ import { Database } from "../db/database.types";
 type NoteRow = Database["public"]["Tables"]["notes"]["Row"];
 type NoteInsert = Database["public"]["Tables"]["notes"]["Insert"];
 type NoteUpdate = Database["public"]["Tables"]["notes"]["Update"];
-type SourceType = Database["public"]["Enums"]["source_type"];
+export type SourceType = Database["public"]["Enums"]["source_type"];
 
 /**
  * Simplified note representation for listing

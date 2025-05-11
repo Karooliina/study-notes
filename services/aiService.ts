@@ -6,35 +6,14 @@ const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const MODEL = "google/palm-2"; // Example model, choose appropriate one
 
 /**
- * Checks if the user is within rate limits for AI usage
- *
- * @param userId - The ID of the user to check
- * @returns Promise with boolean indicating if user is within limits
- */
-async function checkRateLimits(userId: string): Promise<boolean> {
-  // Implementation of rate limit checking
-  // In a real case, you would use Redis or another database
-  // to store usage counters
-  return true; // Returns true if user hasn't exceeded limits
-}
-
-/**
  * Generates note content using AI based on source text
  *
- * @param userId - The ID of the user requesting generation
  * @param sourceText - The source text to summarize
  * @returns Promise with the generated content
  */
 export async function generateNoteContent(
-  userId: string,
   sourceText: string
 ): Promise<GenerateNoteResponseDto> {
-  // Check rate limits
-  const withinLimits = await checkRateLimits(userId);
-  if (!withinLimits) {
-    throw new Error("Rate limit exceeded");
-  }
-
   // Check text length (additional safeguard)
   if (sourceText.length > ValidationRules.notes.sourceText.maxLength) {
     throw new Error("Source text exceeds maximum allowed length");

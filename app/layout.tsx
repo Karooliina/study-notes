@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <div className="min-h-screen flex flex-col items-center">
           <Header />
-          <main className="flex flex-1 flex-col p-5">{children}</main>
+          <main className="w-full  flex flex-1 flex-col p-20">{children}</main>
           <Footer />
         </div>
       </body>
