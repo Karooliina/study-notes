@@ -1,18 +1,8 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
-import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
-import { redirect } from "next/navigation";
+import { checkAuth } from "../../actions";
 
 export default async function Dashboard() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/");
-  }
+  const { user } = await checkAuth();
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
@@ -31,7 +21,6 @@ export default async function Dashboard() {
       </div>
       <div>
         <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
       </div>
     </div>
   );

@@ -5,6 +5,19 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const checkAuth = async () => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/");
+  }
+
+  return { user };
+};
 export const signUpAction = async (formData: FormData) => {
   const userName = formData.get("userName")?.toString();
   const email = formData.get("email")?.toString();
