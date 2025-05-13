@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ModeSwitcher } from "./components/ModeSwitcher";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { CreateNoteForm } from "./components/CreateNoteForm";
 import { useCreateNoteForm } from "./hooks/useCreateNoteForm";
 

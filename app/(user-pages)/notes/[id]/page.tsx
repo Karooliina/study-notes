@@ -2,7 +2,7 @@ import { ViewModeContent } from "./components/ViewModeContent";
 import { EditModeForm } from "./components/EditModeForm";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Toaster } from "sonner";
-import { checkAuth, getNoteDetailsAction } from "@/app/actions";
+import { getNoteDetailsAction } from "@/app/actions";
 import { ZodIssue } from "zod";
 
 interface NoteDetailPageProps {
@@ -43,7 +43,6 @@ export default async function NoteDetailPage({
   params,
   searchParams,
 }: NoteDetailPageProps) {
-  const { user } = await checkAuth();
   const isEditMode = searchParams.editMode === "true";
 
   try {
