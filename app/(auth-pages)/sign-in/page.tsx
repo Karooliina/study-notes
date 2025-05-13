@@ -1,4 +1,4 @@
-import { signInAction } from "@/app/actions/actions";
+import { signInAction } from "@/app/actions";
 import { FormMessage, Message } from "@/app/components/FormMessage";
 import { SubmitButton } from "@/app/components/SubmitButton";
 import { Input } from "@/components/ui/input";
@@ -7,8 +7,9 @@ import Link from "next/link";
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
+
   return (
-    <form className="flex flex-col min-w-64 justify-center">
+    <form className="flex flex-col min-w-64 max-w-80 justify-center self-center">
       <h1 className="text-2xl font-medium">Sign in</h1>
       <p className="text-sm text-foreground">
         Don't have an account?{" "}
