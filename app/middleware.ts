@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
-import { checkAuth } from "./actions";
+import { checkAuth } from "@/app/actions";
 
 const publicRoutes = ["/", "/sign-in", "/sign-up"];
 

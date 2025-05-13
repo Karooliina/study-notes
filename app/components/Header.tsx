@@ -4,6 +4,7 @@ import { checkAuth } from "@/app/actions";
 
 export const Header = async () => {
   const { user } = await checkAuth();
+
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
@@ -13,7 +14,7 @@ export const Header = async () => {
         >
           Study Notes
         </Link>
-        <HeaderAuth user={user.email} />
+        <HeaderAuth user={user?.email} />
       </div>
     </nav>
   );

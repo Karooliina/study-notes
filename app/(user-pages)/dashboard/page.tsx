@@ -1,11 +1,10 @@
 "use server";
 import { Button } from "@/components/ui/button";
-import { checkAuth, getNotesAction } from "../../actions";
+import { getNotesAction } from "@/app/actions";
 import Link from "next/link";
 import { NoteList } from "./components/NotesList";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { GetNotesQueryParams } from "./types";
-import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   const queryParams: GetNotesQueryParams = { order: "desc" };
