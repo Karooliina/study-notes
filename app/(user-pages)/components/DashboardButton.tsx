@@ -1,8 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 
-export const DashboardButton = () => {
+export function DashboardButton() {
+  const pathname = usePathname();
+
+  if (pathname === "/dashboard") {
+    return null;
+  }
+
   return (
     <Button variant="outline" asChild>
       <Link href="/dashboard">
@@ -11,4 +20,4 @@ export const DashboardButton = () => {
       </Link>
     </Button>
   );
-};
+}

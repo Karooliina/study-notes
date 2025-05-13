@@ -1,32 +1,89 @@
-import { checkAuth, getNoteDetailsAction } from "../../../actions";
-import { DashboardButton } from "@/app/(user-pages)/components/DashboardButton";
-import { Badge } from "@/components/ui/badge";
+import { ViewModeContent } from "./components/ViewModeContent";
+import { EditModeForm } from "./components/EditModeForm";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Toaster } from "sonner";
+import { checkAuth, getNoteDetailsAction } from "@/app/actions";
+import { ZodIssue } from "zod";
 
-export default async function Note({ params }: { params: { id: string } }) {
-  const { user } = await checkAuth();
-  const { data: note, error } = await getNoteDetailsAction(params.id);
+interface NoteDetailPageProps {
+  params: {
+    id: string;
+  };
+  searchParams: {
+    editMode?: string;
+  };
+}
 
-  if (error) {
-    return <div>Error</div>;
-  }
+interface ErrorDisplayProps {
+  error: string | ZodIssue[] | null;
+}
 
-  if (!note) {
-    return <div>Note not found</div>;
-  }
-
-  const createdAt = new Date(note.created_at).toLocaleDateString();
+function ErrorDisplay({ error }: ErrorDisplayProps) {
+  const errorMessage = error
+    ? Array.isArray(error)
+      ? error[0]?.message || "Validation error"
+      : error
+    : "An error occurred";
 
   return (
-    <div className="flex-1 flex flex-col gap-12">
-      <div>
-        <DashboardButton />
+    <main className="container mx-auto px-4 py-8">
+      <div className="w-full flex flex-col gap-8">
+        <div className="flex items-center gap-4">
+          <h1 className="text-3xl font-bold">Error</h1>
+        </div>
+        <Alert variant="destructive">
+          <AlertDescription>{errorMessage}</AlertDescription>
+        </Alert>
       </div>
-      <div className="flex flex-col gap-2 justify-center items-center">
-        <h2>{note.title}</h2>
-        <p>{note.content}</p>
-        <p>{createdAt}</p>
-        <Badge>{note.source}</Badge>
-      </div>
-    </div>
+    </main>
   );
+}
+
+export default async function NoteDetailPage({
+  params,
+  searchParams,
+}: NoteDetailPageProps) {
+  const { user } = await checkAuth();
+  const isEditMode = searchParams.editMode === "true";
+
+  try {
+    const result = await getNoteDetailsAction(params.id);
+
+    if (result.error) {
+      return <ErrorDisplay error={result.error} />;
+    }
+
+    if (!result.data) {
+      return <ErrorDisplay error="Note not found" />;
+    }
+
+    return (
+      <main className="container mx-auto px-4 py-8">
+        <div className="w-full flex flex-col gap-8">
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl font-bold sr-only">
+              {isEditMode ? "Edit Note" : "Note Details"}
+            </h1>
+          </div>
+
+          {isEditMode ? (
+            <EditModeForm
+              noteId={params.id}
+              initialData={{
+                title: result.data.title,
+                content: result.data.content,
+              }}
+            />
+          ) : (
+            <ViewModeContent note={result.data} noteId={params.id} />
+          )}
+        </div>
+        <Toaster />
+      </main>
+    );
+  } catch (error) {
+    return (
+      <ErrorDisplay error="An unexpected error occurred. Please try again later." />
+    );
+  }
 }
