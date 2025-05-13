@@ -1,62 +1,90 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { CreateNoteFormState } from "../types";
-import { TitleInput } from "./TitleInput";
-import { TextAreaInput } from "./TextAreaInput";
-import { ValidationRules } from "@/app/types";
+import { Form } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
+import { ValidationRules } from "@/app/types";
+import { FormInput, FormTextArea } from "./FormFields";
+import { ManualNoteFormValues, manualNoteSchema } from "@/app/schemas/forms";
+import { useState } from "react";
+import { createNoteAction } from "@/app/actions/notes";
+import { useRouter } from "next/navigation";
+export function ManualNoteForm() {
+  const [isSaving, setIsSaving] = useState(false);
+  const router = useRouter();
+  const form = useForm<ManualNoteFormValues>({
+    resolver: zodResolver(manualNoteSchema),
+    defaultValues: {
+      title: "",
+      content: "",
+    },
+  });
 
-interface ManualNoteFormProps {
-  state: CreateNoteFormState;
-  onStateChange: (state: Partial<CreateNoteFormState>) => void;
-  onSave: () => void;
-}
+  const onSubmit = async () => {
+    if (form.getValues("title") && form.getValues("content")) {
+      setIsSaving(true);
+      const result = await createNoteAction({
+        title: form.getValues("title"),
+        content: form.getValues("content") ?? "",
+        source: "manual",
+      });
 
-export function ManualNoteForm({
-  state,
-  onStateChange,
-  onSave,
-}: ManualNoteFormProps) {
-  const isSaving = state.isSavingNote;
+      if (result.error) {
+        form.setError("root", {
+          message: result.error,
+        });
+        setIsSaving(false);
+        return;
+      }
+
+      setIsSaving(false);
+      router.push(`/notes/${result.data?.id}`);
+    }
+  };
 
   return (
-    <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-      <TitleInput
-        value={state.title}
-        onChange={(value) => onStateChange({ title: value })}
-        maxLength={ValidationRules.notes.title.maxLength}
-        disabled={isSaving}
-        error={state.titleError}
-      />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormInput
+          name="title"
+          label="Title"
+          placeholder="Note title"
+          maxLength={ValidationRules.notes.title.maxLength}
+          disabled={isSaving}
+        />
 
-      <TextAreaInput
-        label="Note Content"
-        value={state.manualContent}
-        onChange={(value) => onStateChange({ manualContent: value })}
-        maxLength={ValidationRules.notes.content.maxLength}
-        disabled={isSaving}
-        error={state.contentError}
-        placeholder="Write your note here..."
-      />
+        <FormTextArea
+          name="content"
+          label="Note Content"
+          placeholder="Write your note here..."
+          maxLength={ValidationRules.notes.content.maxLength}
+          disabled={isSaving}
+        />
 
-      {state.saveNoteError && (
-        <Alert variant="destructive">
-          <AlertDescription>{state.saveNoteError}</AlertDescription>
-        </Alert>
-      )}
+        {form.formState.errors.root && (
+          <Alert variant="destructive">
+            <AlertDescription>
+              {form.formState.errors.root.message}
+            </AlertDescription>
+          </Alert>
+        )}
 
-      <div className="flex justify-end gap-4">
-        <Button type="submit" onClick={onSave} disabled={isSaving}>
-          {isSaving ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Saving...
-            </>
-          ) : (
-            "Save Note"
-          )}
-        </Button>
-      </div>
-    </form>
+        <div className="flex justify-end gap-4">
+          <Button type="submit" disabled={isSaving}>
+            {isSaving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save Note"
+            )}
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }

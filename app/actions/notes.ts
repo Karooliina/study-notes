@@ -31,14 +31,14 @@ export async function getNotesAction(
     const validatedParams = GetNotesQuerySchema.parse(queryParams || {});
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return { error: "Unauthorized", status: 401 };
     }
 
-    const notes = await listUserNotes(session.user.id, validatedParams.order);
+    const notes = await listUserNotes(user.id, validatedParams.order);
     return { data: notes, status: 200 };
   } catch (error) {
     console.error("Error in getNotesAction:", error);
@@ -59,18 +59,15 @@ export async function getNoteDetailsAction(noteId: string) {
     const validatedParams = GetNoteDetailsParamsSchema.parse({ noteId });
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return { error: "Unauthorized", status: 401 };
     }
 
     try {
-      const note = await getNoteDetails(
-        session.user.id,
-        validatedParams.noteId
-      );
+      const note = await getNoteDetails(user.id, validatedParams.noteId);
 
       if (!note) {
         return { error: "Note not found", status: 404 };
@@ -105,14 +102,14 @@ export async function createNoteAction(formData: CreateNoteRequest) {
     const validatedData = CreateNoteSchema.parse(formData);
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return { error: "Unauthorized", status: 401 };
     }
 
-    const newNote = await createNote(session.user.id, validatedData);
+    const newNote = await createNote(user.id, validatedData);
     return { data: newNote, status: 201 };
   } catch (error) {
     console.error("Error in createNoteAction:", error);
@@ -137,16 +134,16 @@ export async function updateNoteAction(
     const validatedData = UpdateNoteBodySchema.parse(formData);
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return { error: "Unauthorized", status: 401 };
     }
 
     try {
       const updatedNote = await updateNote(
-        session.user.id,
+        user.id,
         validatedParams.noteId,
         validatedData
       );
@@ -184,18 +181,15 @@ export async function deleteNoteAction(noteId: string) {
     const validatedParams = DeleteNoteParamsSchema.parse({ noteId });
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return { error: "Unauthorized", status: 401 };
     }
 
     try {
-      const isDeleted = await deleteNote(
-        session.user.id,
-        validatedParams.noteId
-      );
+      const isDeleted = await deleteNote(user.id, validatedParams.noteId);
 
       if (!isDeleted) {
         return { error: "Note not found", status: 404 };

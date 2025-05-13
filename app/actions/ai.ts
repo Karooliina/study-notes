@@ -21,10 +21,10 @@ export async function generateNoteAction(formData: GenerateNoteRequest) {
     // Get user session
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return {
         error: "Unauthorized",
         status: 401,

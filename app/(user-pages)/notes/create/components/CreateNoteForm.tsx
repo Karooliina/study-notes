@@ -1,38 +1,14 @@
-import { CreateNoteFormState } from "../types";
+import { NoteMode } from "../types";
 import { ManualNoteForm } from "./ManualNoteForm";
 import { AiNoteForm } from "./AiNoteForm";
 
-interface CreateNoteFormProps {
-  state: CreateNoteFormState;
-  onStateChange: (state: Partial<CreateNoteFormState>) => void;
-  onGenerate: () => void;
-  onSave: () => void;
-}
-
-export function CreateNoteForm({
-  state,
-  onStateChange,
-  onGenerate,
-  onSave,
-}: CreateNoteFormProps) {
-  const isAiMode = state.mode === "AI";
+export function CreateNoteForm({ mode }: { mode: NoteMode }) {
+  const isAiMode = mode === "AI";
+  console.log(mode);
 
   if (isAiMode) {
-    return (
-      <AiNoteForm
-        state={state}
-        onStateChange={onStateChange}
-        onGenerate={onGenerate}
-        onSave={onSave}
-      />
-    );
+    return <AiNoteForm />;
   }
 
-  return (
-    <ManualNoteForm
-      state={state}
-      onStateChange={onStateChange}
-      onSave={onSave}
-    />
-  );
+  return <ManualNoteForm />;
 }

@@ -1,9 +1,18 @@
+"use client";
+
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { ModeSwitcherProps, NoteMode } from "../types";
+import { NoteMode } from "../types";
+import { useRouter } from "next/navigation";
 
-export function ModeSwitcher({ currentMode, onModeChange }: ModeSwitcherProps) {
+export function ModeSwitcher({ currentMode }: { currentMode: NoteMode }) {
   const isAiMode = currentMode === "AI";
+
+  const router = useRouter();
+
+  const handleModeChange = (checked: boolean) => {
+    if (checked) router.push(`/notes/create?isAiMode=true`);
+  };
 
   return (
     <div className="flex items-center space-x-8">
@@ -11,7 +20,7 @@ export function ModeSwitcher({ currentMode, onModeChange }: ModeSwitcherProps) {
         <Switch
           id="mode-switch"
           checked={isAiMode}
-          onCheckedChange={(checked) => onModeChange(checked ? "AI" : "Manual")}
+          onCheckedChange={handleModeChange}
         />
         <Label htmlFor="mode-switch" className="font-medium">
           AI Mode {isAiMode ? "On" : "Off"}
