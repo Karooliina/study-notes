@@ -4,8 +4,10 @@ on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
+
 permissions:
-  contents: write
+  contents: read
+  pull-requests: write
 
 jobs:
   lint:
