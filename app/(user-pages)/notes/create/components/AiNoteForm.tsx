@@ -6,7 +6,7 @@ import { Form } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Sparkles } from "lucide-react";
 import { ValidationRules } from "@/app/types";
-import { FormInput, FormTextArea } from "./FormFields";
+import { FormInput, FormTextArea } from "../../../components/FormFields";
 import { AiNoteFormValues, aiNoteSchema } from "@/app/schemas/forms";
 import { SourceTextCollapsible } from "../../../components/SourceTextCollapsible";
 import { generateNoteAction } from "@/app/actions/ai";

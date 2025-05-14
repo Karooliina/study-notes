@@ -1,5 +1,5 @@
 import { NoteListItemDto } from "@/app/types";
-import { NoteListItem } from "./NoteListItem";
+import { NoteListItem } from "./NoteListItem/NoteListItem";
 
 interface NoteListProps {
   notes: NoteListItemDto[];

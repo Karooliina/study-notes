@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { format } from "date-fns";
-import { NoteCardViewModel } from "../types";
+import { NoteCardViewModel } from "../../types";
 import { useMemo } from "react";
 import styles from "./NoteListItem.module.scss";
 import { NoteSourceBadge } from "@/app/(user-pages)/components/NoteSourceBadge";

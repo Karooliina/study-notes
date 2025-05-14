@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CharCounter } from "@/app/(user-pages)/components/CharCounter";
+import { CharCounter } from "./CharCounter";
 
 interface FormInputProps {
   name: string;
