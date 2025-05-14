@@ -1,104 +1,157 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Study Notes
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+A web application designed to create concise notes from educational materials using artificial intelligence (AI).
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## Table of Contents
 
-## Features
+- [Project Description](#project-description)
+- [Tech Stack](#tech-stack)
+- [Getting Started Locally](#getting-started-locally)
+- [Available Scripts](#available-scripts)
+- [Project Scope](#project-scope)
+- [License](#license)
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Project Description
 
-## Demo
+Study Notes is a web application that helps users create concise notes from educational materials using AI. The application has two main modes: AI-generated notes and manual note creation. The product's goal is to accelerate the note preparation process, allowing users to use their time more effectively for learning.
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+The application solves the following user problems:
 
-## Deploy to Vercel
+- Preparing notes from educational materials is time-consuming
+- Students often spend significant time creating summaries and extracting key information from extensive educational materials
 
-Vercel deployment will guide you through creating a Supabase account and project.
+Study Notes solves these problems by:
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+- Automatically generating concise and quality notes from provided materials using AI
+- Offering a simple interface for creating, storing, and managing notes
+- Enabling quick access to previously created notes
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+## Tech Stack
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+### Frontend
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+- **Next.js 15** (App Router) - For building fast, efficient pages and applications with server-side rendering
+- **TypeScript 5** - For static typing and better IDE support
+- **Tailwind CSS 4** - For convenient application styling
+- **Shadcn/ui** - For accessible React component library
+- **React 19** - For building the user interface
+- **React Hook Form** - For form handling
+- **Zod** - For schema validation
 
-## Clone and run locally
+### Backend
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+- **Supabase** - As a comprehensive backend solution:
+  - PostgreSQL database
+  - SDK in multiple languages serving as Backend-as-a-Service
+  - Open-source solution that can be hosted locally or on a server
+  - Built-in user authentication
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### AI Integration
+
+- **Openrouter.ai** - For communication with AI models:
+  - Access to various models (OpenAI, Anthropic, Google, and others)
+  - Financial limits on API keys
+
+### CI/CD and Hosting
+
+- **GitHub Actions** - For creating CI/CD pipelines
+
+## Getting Started Locally
+
+### Prerequisites
+
+- Node.js (v20.11.1)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
 
    ```bash
-   npx create-next-app --example with-supabase with-supabase-app
+   git clone https://github.com/yourusername/study-notes.git
+   cd study-notes
    ```
+
+2. Install dependencies
 
    ```bash
-   yarn create next-app --example with-supabase with-supabase-app
+   npm install
+   # or
+   yarn
    ```
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
-
-3. Use `cd` to change into the app's directory
-
-   ```bash
-   cd with-supabase-app
-   ```
-
-4. Rename `.env.example` to `.env.local` and update the following:
+3. Create a `.env.example` file with the following variables:
 
    ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+   NEXT_PUBLIC_SUPABASE_URL=your-project-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   OPENROUTER_API_KEY=
+   OPENROUTER_API_URL=
+   AI_MODEL=
    ```
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-
-5. You can now run the Next.js local development server:
+4. Run the development server
 
    ```bash
    npm run dev
+   # or
+   yarn dev
    ```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+5. Open [http://localhost:3000](http://localhost:3000) to view the application in your browser
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+## Available Scripts
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+- `npm run dev` - Runs the application in development mode
+- `npm run build` - Builds the application for production
+- `npm run start` - Starts the production server
+- `npm run test` - Runs the test suite
+- `npm run test:watch` - Runs the test suite in watch mode
+- `npm run lint` - Checks for linting errors
+- `npm run lint:fix` - Fixes linting errors automatically
 
-## Feedback and issues
+## Project Scope
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+### MVP Functional Requirements
 
-## More Supabase examples
+1. **User Registration and Authentication**
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+   - User accounts with basic data: username, email, password
+   - Secure storage of user data
+   - Required login to use application functionality
+
+2. **AI Note Generation**
+
+   - Accepting source text up to 5000 words
+   - Generating notes up to 1000 characters
+   - AI response time: maximum 30 seconds
+   - Progress indicator during note generation
+   - Ability to edit generated note before saving
+   - AI API error handling
+   - Note titling
+   - Saving notes to database
+
+3. **Manual Note Creation**
+
+   - Interface for entering own notes
+   - Note titling
+   - Saving notes to database
+
+4. **Note Management**
+
+   - List of saved notes with titles and creation dates
+   - Sorting notes by creation date
+   - Viewing note details
+   - Editing existing notes
+   - Deleting notes
+
+5. **User Interface**
+   - Homepage with application description
+   - Dashboard with list of saved notes
+   - Clear visual distinction between AI mode and manual mode
+   - Detailed note view
+   - Responsive design with Mobile first approach
+
+## License
+
+This project is proprietary and confidential. All rights reserved.
