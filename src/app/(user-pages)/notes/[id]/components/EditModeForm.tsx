@@ -6,20 +6,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { EditModeFormProps } from "../types";
-import { Button } from "@/src/components/ui/button";
-import { Form } from "@/src/components/ui/form";
-import { Alert, AlertDescription } from "@/src/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Save, X } from "lucide-react";
-import { updateNoteAction } from "@/src/app/actions";
-import {
-  manualNoteSchema,
-  ManualNoteFormValues,
-} from "@/src/app/schemas/forms";
+import { updateNoteAction } from "@/app/actions";
+import { manualNoteSchema, ManualNoteFormValues } from "@/app/schemas/forms";
 import {
   FormInput,
   FormTextArea,
-} from "@/src/app/(user-pages)/components/FormFields";
-import { ValidationRules } from "@/src/app/types";
+} from "@/app/(user-pages)/components/FormFields";
+import { ValidationRules } from "@/app/types";
 
 export function EditModeForm({ noteId, initialData }: EditModeFormProps) {
   const router = useRouter();

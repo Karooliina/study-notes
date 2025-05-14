@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Button } from "@/src/components/ui/button";
-import { Alert, AlertDescription } from "@/src/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Pencil, Trash } from "lucide-react";
-import { deleteNoteAction } from "@/src/app/actions";
-import { DeleteConfirmationDialog } from "@/src/app/(user-pages)/components/DeleteConfirmationDialog";
+import { deleteNoteAction } from "@/app/actions";
+import { DeleteConfirmationDialog } from "@/app/(user-pages)/components/DeleteConfirmationDialog";
 
 interface ViewModeActionsProps {
   noteId: string;

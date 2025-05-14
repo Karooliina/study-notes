@@ -1,4 +1,4 @@
-import { NoteDto, UpdateNoteDto } from "@/src/app/types";
+import { NoteDto } from "@/app/types";
 import { ZodError } from "zod";
 
 export interface NoteDetailState {

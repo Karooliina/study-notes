@@ -1,8 +1,8 @@
-import { NoteDto } from "@/src/app/types";
-import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
+import { NoteDto } from "@/app/types";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ViewModeActions } from "./ViewModeActions";
 import { SourceTextCollapsible } from "../../../components/SourceTextCollapsible";
-import { NoteSourceBadge } from "@/src/app/(user-pages)/components/NoteSourceBadge";
+import { NoteSourceBadge } from "@/app/(user-pages)/components/NoteSourceBadge";
 
 interface ViewModeContentProps {
   note: NoteDto;

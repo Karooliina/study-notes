@@ -1,8 +1,8 @@
 import { ViewModeContent } from "./components/ViewModeContent";
 import { EditModeForm } from "./components/EditModeForm";
-import { Alert, AlertDescription } from "@/src/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Toaster } from "sonner";
-import { getNoteDetailsAction } from "@/src/app/actions";
+import { getNoteDetailsAction } from "@/app/actions";
 import { ZodIssue } from "zod";
 
 interface NoteDetailPageProps {
