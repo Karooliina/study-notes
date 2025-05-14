@@ -2,7 +2,8 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-
+import { ThemeProvider } from "@/app/ThemeProvider";
+import PageTransition from "./components/PageTransition";
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -26,11 +27,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
-        <div className="min-h-screen flex flex-col items-center">
-          <Header />
-          <main className="w-full  flex flex-1 flex-col p-20">{children}</main>
-          <Footer />
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen flex flex-col items-center">
+            <Header />
+            <main className="max-w-7xl w-full flex flex-1 flex-col lg:py-20 lg:px-0 md:p-10 p-4">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

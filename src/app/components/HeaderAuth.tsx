@@ -5,7 +5,7 @@ import { Button } from "../../components/ui/button";
 export default async function AuthButton({ user }: { user?: string }) {
   return user ? (
     <div className="flex justify-end items-center w-full gap-4">
-      Hey, {user}!
+      <p className="hidden md:block">Hey, {user}!</p>
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"}>
           Sign out

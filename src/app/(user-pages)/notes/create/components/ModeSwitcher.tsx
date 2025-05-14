@@ -12,6 +12,7 @@ export function ModeSwitcher({ currentMode }: { currentMode: NoteMode }) {
 
   const handleModeChange = (checked: boolean) => {
     if (checked) router.push(`/notes/create?isAiMode=true`);
+    else router.push(`/notes/create`);
   };
 
   return (
