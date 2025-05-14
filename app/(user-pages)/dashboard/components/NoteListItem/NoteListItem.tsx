@@ -35,7 +35,10 @@ export function NoteListItem({ note }: NoteListItemProps) {
       href={viewModel.detailPath}
       className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg"
     >
-      <Card className="h-full transition-colors hover:bg-muted/50">
+      <Card
+        className="h-full transition-colors hover:bg-muted/50"
+        data-testid="note-list-card"
+      >
         <CardHeader>
           <CardTitle className="line-clamp-2">{viewModel.title}</CardTitle>
         </CardHeader>

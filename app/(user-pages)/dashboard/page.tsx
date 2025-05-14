@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { getNotesAction } from "@/app/actions";
 import Link from "next/link";
-import { NoteList } from "./components/NotesList";
+import { NoteList } from "./components/NoteList/NotesList";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { GetNotesQueryParams } from "./types";
 
@@ -27,19 +27,7 @@ export default async function Dashboard() {
             </AlertDescription>
           </Alert>
         )}
-
-        {notes && notes.data.length > 0 ? (
-          <NoteList notes={notes.data} />
-        ) : (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <p className="text-lg text-muted-foreground mb-4">
-              You don't have any notes yet
-            </p>
-            <Button asChild>
-              <Link href="/notes/create">Create your first note</Link>
-            </Button>
-          </div>
-        )}
+        <NoteList notes={notes?.data} />
       </div>
     </main>
   );
