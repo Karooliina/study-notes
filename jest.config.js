@@ -6,11 +6,33 @@ const createJestConfig = nextJest({
 
 /** @type {import('jest').Config} */
 const config = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "jsdom",
+  testPathIgnorePatterns: ["/node_modules/", "/.next/"],
+  collectCoverageFrom: [
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/*.d.ts",
+    "!**/node_modules/**",
+    "!**/.next/**",
+    "!**/coverage/**",
+    "!jest.config.js",
+    "!next.config.js",
+    "!tailwind.config.js",
+    "!postcss.config.js",
+  ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
   },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+  },
+  coverageReporters: ["json", "lcov", "text", "json-summary"],
 };
 
 module.exports = createJestConfig(config);
